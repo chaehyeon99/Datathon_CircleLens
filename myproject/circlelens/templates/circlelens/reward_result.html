@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+   <head>
+      <title>CircleLens</title>
+      <meta charset="utf-8" />
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+      <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+      <link rel="stylesheet" href="{% static 'assets/css/main.css'%}" />
+      <style>
+
+
+      </style>
+   </head>
+   <body class="homepage is-preload">
+      <div id="page-wrapper">
+
+         <!-- Header -->
+            <div id="header-wrapper">
+               <div id="header" class="container" >
+
+                  <!-- Logo -->
+                     <h1 id="logo"><a href="/">CircleLens</a></h1>
+
+                  <!-- Nav -->
+                     <nav id="nav">
+                        <ul>
+                           <li><a href="keyword">탐색하기</a><li>
+                           <li><a href="search">검색하기</a></li>
+                           <li class="break"><a href="reward">평가하기</a></li>
+                           <li><a href="login">로그인</a></li>
+                        </ul>
+                     </nav>
+
+               </div>
+
+         <!-- Main -->
+            <div class="wrapper">
+               <div class="container" id="main">
+                  <p>당신에게 잘 맞는 동아리와 예상 평점은 {{ r_result.0 }} 입니다.</p>
+                  <h1> 추천 동아리 소개 </h1>
+                  <h2> {{introduce.0}} </h2>
+               </div>
+               <div class="container" id="main">
+                  <p>당신에게 잘 맞는 동아리와 예상 평점은 {{ r_result.1 }} 입니다.</p>
+                  <h1> 추천 동아리 소개 </h1>
+                  <h2> {{introduce.0}} </h2>
+               </div>
+               <div class="container" id="main">
+                  <p>당신에게 잘 맞는 동아리와 예상 평점은 {{ r_result.2 }} 입니다.</p>
+                  <h1> 추천 동아리 소개 </h1>
+                  <h2> {{introduce.0}} </h2>
+               </div>
+               <div class="container" id="main">
+                  <p>당신에게 잘 맞는 동아리와 예상 평점은 {{ r_result.3 }} 입니다.</p>
+                  <h1> 추천 동아리 소개 </h1>
+                  <h2> {{introduce.0}} </h2>
+               </div>
+               <div class="container" id="main">
+                  <p>당신에게 잘 맞는 동아리와 예상 평점은 {{ r_result.4 }} 입니다.</p>
+                  <h1> 추천 동아리 소개 </h1>
+                  <h2> {{introduce.0}} </h2>
+               </div>
+            </div>
+
+            <script>
+
+
+
+            </script>
+
+      <!-- Scripts -->
+         <script src="assets/js/jquery.min.js"></script>
+         <script src="assets/js/jquery.dropotron.min.js"></script>
+         <script src="assets/js/browser.min.js"></script>
+         <script src="assets/js/breakpoints.min.js"></script>
+         <script src="assets/js/util.js"></script>
+         <script src="assets/js/main.js"></script>
+         <script src="http://code.jquery.com/jquery-latest.js"></script>
+
+   </body>
+</html>

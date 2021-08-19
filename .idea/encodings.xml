@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/myproject/circlelens/club_introduce_DB.csv" charset="x-windows-949" />
+    <file url="file://$PROJECT_DIR$/myproject/circlelens/club_introduce_data.csv" charset="x-windows-949" />
+    <file url="file://$PROJECT_DIR$/myproject/circlelens/club_tag.csv" charset="x-windows-949" />
+    <file url="file://$PROJECT_DIR$/myproject/circlelens/clubname.csv" charset="x-windows-949" />
+    <file url="file://$PROJECT_DIR$/myproject/circlelens/contents.csv" charset="x-windows-949" />
+    <file url="file://$PROJECT_DIR$/myproject/circlelens/data.csv" charset="x-windows-949" />
+    <file url="file://$PROJECT_DIR$/myproject/circlelens/matching.csv" charset="x-windows-949" />
+  </component>
+</project>

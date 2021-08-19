@@ -1,0 +1,296 @@
+<!DOCTYPE HTML>
+{% load static %}
+<!--
+   Telephasic by HTML5 UP
+   html5up.net | @ajlkn
+   Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+   <head>
+      <title>CircleLens</title>
+      <meta charset="utf-8" />
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+      <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+      <link rel="stylesheet"  href="{% static 'assets/css/main.css'%}" />
+      <style>
+         select {
+         width: 150px;
+         padding: .4em .3em;
+         border: 1px solid #999;
+         font-family: inherit;
+         background: url('arrow.jpg') no-repeat 95% 50%;
+         border-radius: 4px;
+         -webkit-appearance: normal;
+         -moz-appearance: normal;
+         appearance: normal;
+         text-align-last: center;
+         text-align: center;
+         -ms-text-align-last: center;
+         -moz-text-align-last: center;
+         }
+      </style>
+   </head>
+   <body class="homepage is-preload">
+      <div id="page-wrapper">
+
+         <!-- Header -->
+            <div id="header-wrapper">
+               <div id="header" class="container" >
+
+                  <!-- Logo -->
+                     <h1 id="logo"><a href="/">CircleLens</a></h1>
+
+                  <!-- Nav -->
+                         <nav id="nav">
+                             <ul>
+                                 <li>
+                                     <a href="keyword">탐색하기</a>
+                                 </li>
+                                 <li><a href="search">검색하기</a></li>
+                                 <li class="break"><a href="reward">평가하기</a></li>
+                                 <li><a href="login">로그인</a></li>
+                             </ul>
+                         </nav>
+
+               </div>
+
+
+            </div>
+
+         <!-- Main -->
+         <div class="wrapper">
+            <div class="container" id="main">
+               <h3 style="text-align: center;"> 원하는 키워드의 동아리를 선택해주세요! </h3>
+               <p>   </p>
+               <div class="row features">
+                  <form method = "POST">
+                     {% csrf_token %}
+                     <section class="col-12 col-12-narrower feature">
+                        <div id="sido">
+                           <select name ="main" id="sidoSelect" onChange="changeSidoSelect();">
+                              <option value="">대분류를 선택하세요.</option>
+                           </select>
+
+                           <select name = "sub" id="gugunSelect" onChange="changeSecondSelect();">
+                              <option value="">중분류를 선택하세요.</option>
+                           </select>
+                        </div>
+                     </section>
+                     <section class="col-12 col-12-narrower feature">
+                        <input type="submit" onClick = show() value="탐색하기!">
+                     </section>
+                  </form>
+               </div>
+            </div>
+         </div>
+
+
+
+
+               <script type="text/javascript">
+               // 대분류
+               var firstList = new Array("공연","봉사", "자기계발", "취미", "인문 과학", "종교", "체육");
+
+               // 중분류
+
+               var secondList1 = new Array("음악","댄스","밴드","연극&뮤지컬","마술","기타","피아노","버스킹","아카펠라","힙합");
+               var secondList2 = new Array("교육봉사","환경보호","벽화그리기","고양이");
+               var secondList3 = new Array("문화교류","영어회화","코딩","아이디어&창작");
+               var secondList4 = new Array("예술","그림","손글씨","영화","와인","게임","여행");
+               var secondList5 = new Array("인문학","토론","국제이슈","뇌과학","생태탐사","인권","사회참여");
+               var secondList6 = new Array("가톨릭","기독교","불교","원불교","세계선교")
+               var secondList7 = new Array("축구&풋살","농구","야구","활","배드민턴","자전거","실내운동","수영","탁구")
+
+               // 페이지 로딩시 자동 실행
+               window.onload = function(){
+                  var v_sidoSelect = document.getElementById("sidoSelect"); // SELECT TAG
+
+                  for (i =0 ; i<firstList.length; i++){// 0 ~ 3
+                     // 새로운 <option value=''>값</option> 태그 생성
+                     var optionEl = document.createElement("option");
+
+                     // option태그에 value 속성 값으로 저장
+                     optionEl.value = firstList[i];
+
+                     // text 문자열을 새로 생성한 <option> 태그의 값으로 추가
+                     optionEl.appendChild (document.createTextNode(firstList[i]));
+
+                     // 만들어진 option 태그를 <select>태그에 추가
+                     v_sidoSelect.appendChild(optionEl);
+                  }
+
+                  var v_gugunSelect = document.getElementById("gugunSelect"); // SELECT TAG
+                  // v_gugunSelect.style.display = "none";  // 태그 감추기
+                  var v_gugunSelect = document.getElementById("lastSelect"); // SELECT TAG
+                  // v_gugunSelect.style.display = "none";  // 태그 감추기
+
+               }
+
+               // 대분류 선택시
+               function changeSidoSelect(){
+                  var v_sidoSelect = document.getElementById("sidoSelect"); // SELECT TAG
+                  var idx = v_sidoSelect.options.selectedIndex;     // 선택값 0 ~ 3
+
+
+                  if (idx < 1 && idx > 3){
+                     return;
+                  }
+
+
+                  gugunSelectFill(idx);   // 중분류 생성
+               }
+
+
+               function gugunSelectFill(idx){
+                  var v_gugunSelect = document.getElementById("gugunSelect"); // SELECT TAG
+                  var v_secondSelect = document.getElementById("lastSelect");
+
+                  var data = null;
+
+                  if (idx == 0) {
+                     v_gugunSelect.style.display = "none";  // 중분류 태그 감추기
+                     v_secondSelect.style.display = "none";
+                     return;
+                  }
+
+                  if (idx == 1){
+                  data = secondList1
+
+                  }
+                  if (idx == 2){
+                  data = secondList2
+
+                  }
+                  if (idx == 3){
+                  data = secondList3
+
+                  }
+
+                  if (idx == 4){
+                  data = secondList4
+
+                  }
+
+                  if (idx == 5){
+                  data = secondList5
+
+                  }
+                  if (idx == 6){
+                  data = secondList6
+
+                  }
+
+                  if (idx == 7){
+                  data = secondList7
+
+                  }
+
+                  v_gugunSelect.innerHTML = "";  // 태그 출력
+
+                  for (i =0 ; i<data.length; i++){
+                     // 새로운 <option value=''>값</option> 태그 생성
+                     var optionEl = document.createElement("option");
+
+                     // value 속성 태그에 저장
+                     optionEl.value = data[i];
+
+                     // text 문자열을 새로 생성한 <option> 태그에 추가
+                     optionEl.appendChild (document.createTextNode(data[i]));
+
+                     // 만들어진 option 태그를 <select>태그에 추가
+                     v_gugunSelect.appendChild(optionEl);
+                  }
+
+               v_gugunSelect.style.display = ""; // 중분류 태그 출력
+
+
+               }
+
+               // 대분류 선택시
+               function changeSecondSelect(){
+                  var v_sidoSelect = document.getElementById("sidoSelect"); // SELECT TAG
+                  var v_secondSelect = document.getElementById("gugunSelect"); // SELECT TAG
+                  var idx = v_sidoSelect.options.selectedIndex;
+                  var idx2 = v_secondSelect.options.selectedIndex;    // 선택값 0 ~ 3
+
+                  // alert("select: " + selText);
+                  if (idx < 1 && idx > 3){
+                     return;
+                  }
+
+
+                  console.log(v_secondSelect)
+
+               }
+
+               function lastSelectFill(idx,idx2){
+                  var v_lastSelect = document.getElementById("lastSelect"); // SELECT TAG
+                  var data = null;
+
+                  if (idx == 0) {
+                     v_lastSelect.style.display = "none";  // 중분류 태그 감추기
+                     btnArea.style.display = "none";
+                     return;
+                  }
+
+                  if (idx == 1&&idx2 == 0){
+                     data = lastList1_1
+                     }
+                  if (idx == 1&&idx2 == 1){
+                     data = lastList1_2
+                     }
+                  if (idx == 1&&idx2 == 2){
+                     data = lastList1_3
+                     }
+                  if (idx == 1&&idx2 == 3){
+                     data = lastList1_4
+                     }
+                  if (idx == 2&&idx2 == 0){
+                     data = lastList2_1
+                     }
+                  if (idx == 2&&idx2 == 1){
+                     data = lastList2_2
+                     }
+                  if (idx == 2&&idx2 == 2){
+                     data = lastList2_3
+                     }
+                  if (idx == 2&&idx2 == 3){
+                     data = lastList2_4
+                     }
+
+
+
+                  v_lastSelect.innerHTML = "";  // 태그 출력
+
+                  for (i =0 ; i<data.length; i++){
+                     // 새로운 <option value=''>값</option> 태그 생성
+                     var optionEl = document.createElement("option");
+
+                     // value 속성 태그에 저장
+                     optionEl.value = data[i];
+
+                     // text 문자열을 새로 생성한 <option> 태그에 추가
+                     optionEl.appendChild (document.createTextNode(data[i]));
+
+                     // 만들어진 option 태그를 <select>태그에 추가
+                     v_lastSelect.appendChild(optionEl);
+                  }
+
+               v_lastSelect.style.display = ""; // 중분류 태그 출력
+
+
+               }
+               </script>
+
+
+      <!-- Scripts -->
+         <script src="assets/js/jquery.min.js"></script>
+         <script src="assets/js/jquery.dropotron.min.js"></script>
+         <script src="assets/js/browser.min.js"></script>
+         <script src="assets/js/breakpoints.min.js"></script>
+         <script src="assets/js/util.js"></script>
+         <script src="assets/js/main.js"></script>
+   </body>
+</html>
