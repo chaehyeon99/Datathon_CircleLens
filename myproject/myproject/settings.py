@@ -27,7 +27,7 @@ SECRET_KEY = ['(c=@zy-u^p83+di_7(3*v5ujvvim2a2*7n6lfo)k(@--qy=iw7']
 DEBUG = False
 
 
-ALLOWED_HOSTS = ['circlelens.com', 'www.circlelens.com', 'localhost', "chaehyeon","101.101.216.46"]
+ALLOWED_HOSTS = ['circlelens.com', 'www.circlelens.com', 'localhost', "chaehyeon","101.101.216.46",101.101.216.46]
 
 
 # Application definition
