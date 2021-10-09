@@ -21,18 +21,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.envision['(c=@zy-u^p83+di_7(3*v5ujvvim2a2*7n6lfo)k(@--qy=iw7']
+SECRET_KEY = ['(c=@zy-u^p83+di_7(3*v5ujvvim2a2*7n6lfo)k(@--qy=iw7']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
 
-ALLOWED_HOSTS = ['circlelens.com', 'www.circlelens.com', 'localhost', ]
+ALLOWED_HOSTS = ['circlelens.com', 'www.circlelens.com', 'localhost', "chaehyeon","101.101.216.46"]
 
-server {
-    listen 80 default_server;
-    return 444;
-}
+
 # Application definition
 
 INSTALLED_APPS = [
