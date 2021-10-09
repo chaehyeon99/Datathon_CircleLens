@@ -440,7 +440,7 @@ def new_recom(dataframe):
     return result
 
 def index(request) :
-    return render(request, "circlelens\index.html")
+    return render(request, "circlelens/index.html")
 
 def reward(request) :
     club_list = pd.read_csv('circlelens/club_tag.csv', encoding='cp949')

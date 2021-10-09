@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = ['(c=@zy-u^p83+di_7(3*v5ujvvim2a2*7n6lfo)k(@--qy=iw7']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 
 ALLOWED_HOSTS = ['*']
@@ -125,7 +125,7 @@ STATIC_DIR = os.path.join(BASE_DIR, 'circlelens/static')
 STATIC_ROOT = "/myproject/circlelens/static/"
 STATICFILES_DIRS = [
     STATIC_DIR,
-    BASE_DIR / "static", "/myproject/circlelens/static/",
+    BASE_DIR / "static"
 ]
 
 STATIC_URL = '/static/'
