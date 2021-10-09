@@ -21,14 +21,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '(c=@zy-u^p83+di_7(3*v5ujvvim2a2*7n6lfo)k(@--qy=iw7'
+SECRET_KEY = os.envision['(c=@zy-u^p83+di_7(3*v5ujvvim2a2*7n6lfo)k(@--qy=iw7']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
 
+ALLOWED_HOSTS = ['circlelens.com', 'www.circlelens.com', 'localhost', ]
 
+server {
+    listen 80 default_server;
+    return 444;
+}
 # Application definition
 
 INSTALLED_APPS = [
@@ -123,7 +127,8 @@ USE_TZ = True
 STATIC_DIR = os.path.join(BASE_DIR, 'circlelens/static')
 STATICFILES_DIRS = [
     STATIC_DIR,
+    BASE_DIR / "static", "/myproject/circlelens/static/",
 ]
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static_files')
+STATIC_ROOT = "/var/www/circlelens.com/static/"

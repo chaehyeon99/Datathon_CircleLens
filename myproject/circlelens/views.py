@@ -15,6 +15,49 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.metrics import mean_squared_error
 from sklearn import ensemble
 
+def contents_based(cn):
+  contents = pd.read_csv('circlelens/contents.csv',encoding='cp949')
+  contents_rm_name = contents.drop(['동아리'], axis = 1)
+  c_sim = cosine_similarity(contents_rm_name).argsort()[:,::-1]
+
+  def get_recommend_club_list(df, club_name, top=30):
+    # 해당 동아리에 대한 index 정보를 뽑아 냄.
+    target_club_index = contents[contents['동아리'] == club_name].index.values
+
+    # 비슷한 코사인 유사도를 가진 정보를 뽑아 냄.
+    sim_index = c_sim[target_club_index, :top].reshape(-1)
+
+    # 본인 제외
+    sim_index = sim_index[sim_index != target_club_index]
+
+    # dataframe으로 만든 뒤 return
+    result = df.iloc[sim_index][:3]['동아리']
+    return result
+
+  final = get_recommend_club_list(contents, cn).tolist()
+  return final
+
+
+def item_based(cn):
+    ratings = pd.read_csv('circlelens/ratings.csv', encoding='cp949')
+    contents = pd.read_csv('circlelens/contents.csv', encoding='cp949')
+
+    item_user_ratings = ratings.pivot_table('ratings', index='club', columns='userid')  # 데이터 형태 변경
+    item_user_ratings.fillna(0, inplace=True)
+
+    item_based_collabor = cosine_similarity(item_user_ratings)  # 유사도 측정 척도로 cosine similarity를 사용
+    clubid = item_user_ratings.index
+
+    item_based_collabor = pd.DataFrame(data=item_based_collabor, index=contents['동아리'], columns=contents['동아리'])
+
+    def get_item_based_collabor(title):
+        rec = item_based_collabor[title].sort_values(ascending=False)[1:4]
+        top_item_titles = rec.index.values.tolist()
+        return top_item_titles
+
+    final = get_item_based_collabor(cn)
+    return final
+
 
 
 def classification(receive):
@@ -481,8 +524,9 @@ def search(request) :
         where = intro[intro['동아리명'] == club_name]['소속'].to_string()
 
         introduce = intro[intro['동아리명'] == club_name]['동아리소개'].to_string()
-
-        return render(request, "circlelens/search_result.html", {"c_name": c_name, "site":site[2:], "tag": tag[2:], "where":where[2:], "introduce": introduce[2:]})
+        recom =[]
+        recom = contents_based(c_name)+ item_based(c_name)
+        return render(request, "circlelens/search_result.html", {"c_name": c_name, "site":site[2:], "tag": tag[2:], "where":where[2:], "introduce": introduce[2:], "recom":recom})
     else :
         return render(request, "circlelens/search.html")
 
